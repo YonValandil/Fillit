@@ -6,71 +6,11 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:22:06 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/08 04:06:27 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/19 03:03:49 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-/*
-int		check_file(char *file_content)
-{
-	int i;
-	int j;
-	int k;
-	int t;
-
-	i = 0;
-	t = 0;
-	while (file_content[i] != '\0')
-	{
-		printf("\nnew tetri\n");
-		k = 0;
-		while (k < 4)
-		{
-			j = 0 + t;
-			while(j < 4 + t)
-			{
-				if (file_content[j] != '.' && file_content[j] != '#')
-				{
-					printf("\ncaract ./# faux: %c", file_content[j]);
-					return (0);
-				}
-				printf("\ncaract ./# juste: %c", file_content[j]);
-				j++;
-			}
-			if (file_content[j] != '\n')
-			{
-				printf("\nfaux, pas de '\\n' apres ligne\n");
-				return (0);
-			}
-			printf("\njuste, '\\n' apres ligne\n");
-			printf("\nligne ok");
-			t += 5;
-			k++;
-		}
-
-		printf("\nformat tetri ok\n");
-
-		if (file_content[t] == '\0')
-		{
-			printf("\nfile juste\n");
-			return (1);
-		}
-
-		if (file_content[t] != '\n')
-		{
-			printf("\nfaux, pas de \\n ou \\0 apres tetri");
-			printf("\n caract = %d\n", file_content[t]);
-			return (0);
-		}
-
-		printf("\\n ou \\0 apres tetri ok\n");
-		t++;
-		i++;
-	}
-	return (1);
-}
-*/
 
 int		parse_file(char *file_content, char ***tetriminos)
 {
