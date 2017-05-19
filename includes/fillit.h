@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/08 04:11:38 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/19 03:12:16 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,10 @@ typedef struct      s_coords
     int     y;
 }                   t_coords;
 
-typedef struct      s_map
-{
-    int     x;
-    int     y;
-    char    *map;
-}                   t_map;
-
-typedef struct      s_piece
-{
-    t_coords     min;
-    t_coords     max;
-}                   t_piece;
-
 typedef struct      s_tetri
 {
     int         nb;
     char        **tetriminos;
-    char        **tetris_min;
-    t_piece p[26];
 }                   t_tetri;
 
 char	*read_file(char *file);
