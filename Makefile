@@ -10,7 +10,7 @@ SRCS_DIR =	./srcs/
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
 HEADER =	./includes/
-CFLAGS =	-Wall -Werror -Wextra -g
+CFLAGS =	-Wall -Werror -Wextra
 ARFLAGS =	-rcs
 CFILES =	main file tetris map trim game
 
