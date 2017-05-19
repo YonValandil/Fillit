@@ -8,7 +8,7 @@ int		check_tetri(t_tetri *t, int k, int j, int four)
 	i = -1;
 	while (++i < 16)
 	{
-		if (t->tetriminos[j][i] && ++four)
+		if (t[j]->tetriminos[i] && ++four)
 		{
 			connect = 0;
 			if (((i + 1) % 4) && t->tetriminos[j][i + 1])

@@ -6,13 +6,27 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:22:06 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 03:03:49 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/05/19 06:51:00 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		parse_file(char *file_content, char ***tetriminos)
+int		set_tetri(t_tetri t)
+{
+	int		a;
+	int		b;
+
+	a = -1;
+	b = 4;
+	while (++a < 26 && !(b = 0))
+		while (b--)
+		{
+		}
+	if (if)
+}
+
+int		parse_file(char *file_content, t_tetri *t)
 {
 	int i;
 	int j;
@@ -21,7 +35,7 @@ int		parse_file(char *file_content, char ***tetriminos)
 	k = 0;
 	while (k < 26)
 	{
-		j = -1;
+		j = 16;
 		i = -1;
 		while (++i < 20)
 		{
@@ -30,37 +44,27 @@ int		parse_file(char *file_content, char ***tetriminos)
 				|| (!((i + 1) % 5) && file_content[i + 21 * k] != '\n'))
 				return (0);
 			if ((i + 1) % 5)
-				(*tetriminos)[k][++j] = (46 - file_content[i + 21 * k]) / 11;
+				t[k]->data |= ((46 - file_content[i + 21 * k]) / 11) << --j;
 		}
 		if (file_content[i + 21 * k] == '\n')
 			++k;
 		else
-			return ((file_content[i + 21 * k] == '\0') ? k + 1 : 0);
+			return (1);
 	}
 	return (0);
 }
-
+!= '#'
 char	*read_file(char *file)
 {
-	int rd;
-	int fd;
-	char *buf;
+	int		rd;
+	int		fd;
+	char	*buf;
 
-	rd = 1;
-	buf = ft_memalloc(sizeof(char) * (BUF_SIZE + 1));
-	fd = open(file, O_RDONLY);
-	if (fd > 0)
-	{
-		while (rd > 0)
-		{
-			rd = read(fd, buf, BUF_SIZE);
-			buf[rd] = '\0';
-			return (buf);
-		}
-	}
+	buf = (char[BUFF_SIZE + 1]){0};
+	if (-1 != (fd = open(file, O_RDONLY)) &&
+			-1 != (rd = read(fd, buf, BUFF_SIZE)))
+		rd = read(fd, buf, BUFF_SIZE);
 	else
-		write(2, "Open fd failed\n", 15);
-	if (close(fd))
-		write(2, "file close failed\n", 18);
-	return (0);
+		write(1, "error\n", 6);
+	return (buf);
 }
