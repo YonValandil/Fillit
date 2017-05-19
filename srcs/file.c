@@ -6,24 +6,24 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:22:06 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 06:51:00 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/05/19 08:05:55 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		set_tetri(t_tetri t)
+int		set_tetri(t_tetri *t)
 {
-	int		a;
-	int		b;
+	int		i;
 
-	a = -1;
-	b = 4;
-	while (++a < 26 && !(b = 0))
-		while (b--)
-		{
-		}
-	if (if)
+	i = -1;
+	while (++i < 26)
+	{
+		while (!(t[k]->data &= 0xF << 12))
+			t[k]->data = t[k]->data << 4;
+		while (!(t[k]->data &= 0x8888))
+			t[k]->data << t[k]->data = 1;
+	}
 }
 
 int		parse_file(char *file_content, t_tetri *t)
@@ -53,7 +53,7 @@ int		parse_file(char *file_content, t_tetri *t)
 	}
 	return (0);
 }
-!= '#'
+
 char	*read_file(char *file)
 {
 	int		rd;

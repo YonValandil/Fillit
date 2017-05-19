@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 06:51:11 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/05/19 07:01:26 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,5 @@ int		main(int argc, char *argv[])
 		}
 		ft_putchar('\n');
 	}
-	resolv(&t, &m);
-	m.map = (char *) malloc(sizeof(char) * t.nb);
 	return (0);
 }

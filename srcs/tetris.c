@@ -41,7 +41,6 @@ int		check_tetris(t_tetri *t)
 		four = 0;
 		if (!check_tetri(t, k, j, four))
 			return (0);
-        trim_piece(t, j);
 	}
 	return (1);
 }
