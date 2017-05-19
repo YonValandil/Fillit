@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 07:01:26 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/19 11:39:08 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,15 @@ int		main(int argc, char *argv[])
 {
 	char	*file_content;
 	t_tetri	t[26];
-	int i;
-	int	j;
 
 	if (argc != 2)
 	{
-		write(1, "usage: ./fillit tetriminos_file\n", );
+		write(1, "usage: ./fillit tetriminos_file\n", 32);
 		return (0);
 	}
 	file_content = read_file(argv[1]);
-	if (!parse_file(file_content, t))
+	if (!parse_file(file_content, t) || !set_tetri(t) || !check_tetri(t))
 		return (0);
-	if (!set_tetri(t))
-		return (0);
-	if (!(check_tetris(&t)))
-		return (0);
-	recup_tetris_min(&t);
-	j = -1;
-	while(++j < t.nb)
-	{
-		i = -1;
-		while (++i < 16)
-		{
-			ft_putnbr(t.tetris_min[j][i]);
-			if (!((i + 1) & 3))
-				ft_putchar('\n');
-		}
-		ft_putchar('\n');
-	}
+	ft_begin();
 	return (0);
 }

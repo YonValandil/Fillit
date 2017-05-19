@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 06:07:34 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/05/19 11:33:48 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ typedef struct	s_tetri
 	int			y;
 }				t_tetri;
 
+void	begin(t_tetris*);
+int		backtracking(t_tetris*, int, short*, int);
 char	*read_file(char *file);
 int		set_tetri(t_tetri*);
 int     parse_file(char *file_content, t_tetri*);
-int     check_tetris(t_tetri *t);
-int		check_tetri(t_tetri *t, int k, int j, int four);
+int     check_tetri(t_tetri *t);
 
 #endif
