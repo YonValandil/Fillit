@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 03:12:16 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/19 03:17:25 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,18 @@
 
 #include <stdio.h> //a supr !!!!
 
-typedef struct      s_coords
+typedef struct	s_coords
 {
-    int     x;
-    int     y;
-}                   t_coords;
+    int			x;
+    int			y;
+}				t_coords;
 
-typedef struct      s_tetri
+typedef struct	s_tetri
 {
-    int         nb;
-    char        **tetriminos;
-}                   t_tetri;
+	short		data;
+    int			x;
+	int			y;
+}				t_tetri;
 
 char	*read_file(char *file);
 int     parse_file(char *file_content, char ***tetriminos);
