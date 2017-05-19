@@ -4,7 +4,7 @@
 .SUFFIXES:
 
 CC =		gcc
-EXEC =		bin
+EXEC =		fillit
 NAME =		ft
 SRCS_DIR =	./srcs/
 OBJS_DIR =	./
@@ -21,9 +21,6 @@ OBJS =		$(SRCS:%.c=$(OBJS_DIR)%.o)
 all:
 	make -C libft/
 	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(NAME) -o $(EXEC) $(CFLAGS)
-	@echo $(EXEC) Done !
-	@echo ------------------
-	@./$(EXEC) sample.fillit
 
 clean:
 	rm -f $(OBJS)
