@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:22:06 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 08:05:55 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/19 10:25:14 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@ int		set_tetri(t_tetri *t)
 	i = -1;
 	while (++i < 26)
 	{
-		while (!(t[k]->data &= 0xF << 12))
-			t[k]->data = t[k]->data << 4;
+		t[i]->x = 0;
+		t[i]->y = 0;
+		while (!(t[i]->data &= 0xF << 12))
+			t[i]->data = t[i]->data << 4;
 		while (!(t[k]->data &= 0x8888))
-			t[k]->data << t[k]->data = 1;
+			t[i]->data << t[i]->data = 1;
+		while (t[i]->data & 0x8888 >> t[i]->x)
+			t[i]->x++;
+		while (t[i]->data & 0xF000 >> t[i]->y)
+			t[i]->y++;
 	}
 }
 
