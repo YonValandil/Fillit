@@ -12,7 +12,7 @@ LIB_DIR = 	./libft/
 HEADER =	./includes/
 CFLAGS =	-Wall -Werror -Wextra
 ARFLAGS =	-rcs
-CFILES =	main file
+CFILES =	main fillit
 
 #pattern sub : $(var:pattern=replacement)
 SRCS =		$(CFILES:%=$(SRCS_DIR)%.c)

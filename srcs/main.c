@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/19 11:39:08 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/05/23 06:09:39 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int		main(int argc, char *argv[])
 	file_content = read_file(argv[1]);
 	if (!parse_file(file_content, t) || !set_tetri(t) || !check_tetri(t))
 		return (0);
-	ft_begin();
+	begin(t);
 	return (0);
 }
