@@ -46,7 +46,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		map[13] = (short[13]){0};
 	//comparaison binaire pour placer la piece
 	//pas moyen de faire direct sans les boucles?
-	//Manu : je comprend pas la question, pas assez precise
+	//Manu : je comprend pas la question, pas assez precise et a quoi sert a la ligne d en dessous ?
 	while (++c.y <= t->y) //pour chaque lignes du tetri
 	{
 		while (++c.x <= t->x)
@@ -57,7 +57,9 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		}
 	}
 	//if (!i) //si toute la place est libre pour la piece
-	//Manu : penser a checker si la piece + sa position est superieur a square, dans ce cas c est pas bon
+	//Manu : penser a checker si la piece + sa position est superieur a square, dans ce cas c est pas bon, pour savoir
+	//en x : c.x + t->x <= square
+
 		//map[] = t[p]->data;
 	//backtracking(t, square, map, p + 1);
 	printf("\ni = %d\n", i);
