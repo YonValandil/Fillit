@@ -9,6 +9,19 @@ void	begin(t_tetri *t)
 //	calcul carré minimum en fonction du nombre de pieces
 	map = NULL;
 	square = 4; //on fait * 2 direct
+	/* Note de Manu :
+** Square doit posseder la taille minimum du coté de la carte en fonction du nombre de piece
+** 1 piece = 4 cubes
+** donc Aire de Square  =  (nombre de piece * 4) et la on obtient l aire
+** Pour calculer l aire d un carré (car notre carte sera toujours un carré)
+** On multiplie le coté par lui meme soit : pow(coté, 2)
+** pow correspond a la fonction mathematique puissance
+**
+** A partir de la tu devrais pouvoir finir la formule
+** L evolution de square se fait de 1 par 1 et non pas *2
+** square = square + 1
+*/
+
 	p = 0;
 //	si backtracking echec alors piece precedente a bouger => augmenter tailler carré minimum
 	//bt = backtracking(t, square, map, p);
@@ -33,6 +46,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		map[13] = (short[13]){0};
 	//comparaison binaire pour placer la piece
 	//pas moyen de faire direct sans les boucles?
+	//Manu : je comprend pas la question, pas assez precise
 	while (++c.y <= t->y) //pour chaque lignes du tetri
 	{
 		while (++c.x <= t->x)
@@ -43,6 +57,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		}
 	}
 	//if (!i) //si toute la place est libre pour la piece
+	//Manu : penser a checker si la piece + sa position est superieur a square, dans ce cas c est pas bon
 		//map[] = t[p]->data;
 	//backtracking(t, square, map, p + 1);
 	printf("\ni = %d\n", i);
