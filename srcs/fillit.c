@@ -9,22 +9,7 @@ void	begin(t_tetri *t, int rd)
 	map = NULL;
 	square = ft_sqrt((rd + 1) / 21 * 4);
 
-	//je prend pour une piece au commencement parce qu'en fait on a pas le nbr de pieces totals
-	/* Note de Manu :
-** Square doit posseder la taille minimum du coté de la carte en fonction du nombre de piece
-** 1 piece = 4 cubes
-** donc Aire de Square  =  (nombre de piece * 4) et la on obtient l aire
-** Pour calculer l aire d un carré (car notre carte sera toujours un carré)
-** On multiplie le coté par lui meme soit : pow(coté, 2)
-** pow correspond a la fonction mathematique puissance
-**
-** A partir de la tu devrais pouvoir finir la formule
-** L evolution de square se fait de 1 par 1 et non pas *2
-** square = square + 1
-*/
-
 //	si backtracking echec alors piece precedente a bouger => augmenter tailler carré minimum
-
 	//bt = backtracking(t, square, map, p);
 	/*if(bt > 0)
 		backtracking(t, square, map, p + 1);
@@ -51,6 +36,7 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 
 	int i;
 
+// i ne peut pas etre egal a -1 au debut avec ce que tu as fait apres
 	i = -1;
 	while ((i / 4) < t.x)
 	{
@@ -70,9 +56,6 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 	c.y = -1;
 	if (!map)
 		map = (short[13]){0};
-	//est ce que je suis oblige de parcourir toute la map (un a un) avec les boucles ?
-	//Ou est qu'il y a un moyen de comparer un block entier et non pas caractere par caractere
-	//Manu : je comprend pas la question, pas assez precise et a quoi sert a la ligne d en dessous ?
 	while (++c.y + t[p].y < square)
 	{
 		c.x = -1;

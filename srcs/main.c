@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/30 03:19:21 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/31 22:17:46 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int		main(int argc, char *argv[])
 	buf = (char[BUFF_SIZE + 1]){0};
 	if (-1 != (fd = open(*argv, O_RDONLY)) &&
 		-1 != (rd = read(fd, buf, BUFF_SIZE)))
-	rd = read(fd, buf, BUFF_SIZE);
 	if (buf[545] != '\0' || !parse_file(buf, t) || !set_tetri(t) || !check_tetri(t))
 	{
 		ft_putstr("error\n");
