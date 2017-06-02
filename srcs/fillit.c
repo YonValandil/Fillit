@@ -28,24 +28,14 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 // comparaison a l aide de &
 // le defi est disoler les informations qui nous interessent pour ne pas etre
 // parasité par l obsolete
-
-	map[c.y]
-	map[c.y + 1]
-	map[c.y + 2]
-	map[c.y + 3]
-
 	int i;
 
-// i ne peut pas etre egal a -1 au debut avec ce que tu as fait apres
-	i = -1;
-	while ((i / 4) < t.x)
-	{
-		if((t.data & (0xF << 12 - i)) & (map[c.y] & (0xF000 >> c.x)))
-		{
-			return (0);
-		}
-		i += 4;
-	}
+	i = t.y;
+	//while (i != -1 && !((((0xF000 >> (i * 4)) & t.data) >> c.x) & (map[c.y + i]))) //a tester
+	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x & (map[c.y + i])))
+		--i;
+	if ((((0xF000 >> (i * 4)) & t.data) >> c.x) & (map[c.y + i]))
+		return (0);
 	return (1);
 }
 
@@ -64,7 +54,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 			++c.x;
 		}
 	}
-	if (sortir)
+	//if (sortir)
 	//si toute la place est libre pour le tetri et qu'il depasse pas on peut poser la piece
 	//if (!i && (map[c.y] + t->x <= square))
 	//Manu : penser a checker si la piece + sa position est superieur a square, dans ce cas c est pas bon, pour savoir

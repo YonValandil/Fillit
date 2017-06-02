@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/31 22:17:46 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/06/02 08:48:18 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int		parse_file(char *buf, t_tetri *t)
 		if (buf[i + 21 * k] == '\n')
 			++k;
 		else
+		{
+			printf("\nparse valide\n\n");
 			return (1);
+		}
 	}
+	printf("\nparse not work\n\n");
 	return (0);
 }
 
@@ -65,6 +69,7 @@ int     check_tetri(t_tetri *t)
 				if ((!connect) || (four != 4 && i == 15))
 					return (0);
 			}
+	printf("\ncheck\nfour  = %d\n\n", four);
 	return ((four != 4) ? 0 : 1);
 }
 
@@ -86,6 +91,7 @@ int		set_tetri(t_tetri *t)
 		while (t[i].data & 0xF000 >> t[i].y)
 			t[i].y++;
 	}
+	printf("\nset tetri\n\n");
 	return (1);
 }
 
@@ -96,6 +102,7 @@ int		main(int argc, char *argv[])
 	char	*buf;
 	t_tetri	t[26];
 
+	rd = 1;
 	if (argc != 2)
 	{
 		write(1, "usage: ./fillit tetriminos_file\n", 32);
@@ -104,6 +111,7 @@ int		main(int argc, char *argv[])
 	buf = (char[BUFF_SIZE + 1]){0};
 	if (-1 != (fd = open(*argv, O_RDONLY)) &&
 		-1 != (rd = read(fd, buf, BUFF_SIZE)))
+	printf("\nbuf[545] = %d\n\n", buf[545]);
 	if (buf[545] != '\0' || !parse_file(buf, t) || !set_tetri(t) || !check_tetri(t))
 	{
 		ft_putstr("error\n");
