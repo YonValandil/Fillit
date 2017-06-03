@@ -8,30 +8,15 @@ void	begin(t_tetri *t, int rd)
 
 	map = NULL;
 	square = ft_sqrt((rd + 1) / 21 * 4);
-
-//	si backtracking echec alors piece precedente a bouger => augmenter tailler carré minimum
-	//bt = backtracking(t, square, map, p);
-	/*if(bt > 0)
-		backtracking(t, square, map, p + 1);
-	else if (bt == 0)
-	{
-		backtracking(t, square * 2, map, p + 1);
-	}*/
-	while (0 < backtracking(t, square++, map, 0))
-		;
+	while (0 < backtracking(t, square, map, 0))
+		++square;
 }
 
 int		cmp_map(short *map, t_coords c, t_tetri t)
 {
-// premiere ligne de la piece ne sont que les 4 premiers bits du short de la piece
-// premiere ligne de la map est un short entier
-// comparaison a l aide de &
-// le defi est disoler les informations qui nous interessent pour ne pas etre
-// parasité par l obsolete
 	int i;
 
 	i = t.y;
-	//while (i != -1 && !((((0xF000 >> (i * 4)) & t.data) >> c.x) & (map[c.y + i]))) //a tester
 	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x & (map[c.y + i])))
 		--i;
 	if ((((0xF000 >> (i * 4)) & t.data) >> c.x) & (map[c.y + i]))
@@ -39,28 +24,46 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 	return (1);
 }
 
+void	put_tetri(short *map, t_coords c, t_tetri t)
+{
+	int i;
+
+	i = t.y;
+	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
+		--i;
+}
+
+void	rmv_tetri(short *map, t_coords c, t_tetri t)
+{
+	while (i != -1 && ((t.data << (i * 4) & 0x0) >> c.x | (map[c.y + i])))
+		--i;
+}
+
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
 	t_coords	c;
 
-	c.y = -1;
+	c.x = 0;
+	c.y = 0;
 	if (!map)
 		map = (short[13]){0};
-	while (++c.y + t[p].y < square)
+	while (c.y + t[p].y < square)
 	{
-		c.x = -1;
-		while (++c.x + t[p].x < square && cmp_map(map, c, t[p]) != 0)
-		{
+		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
 			++c.x;
+		if (c.x + t[p].x < square)
+		{
+			put_tetri(map, c, t[p]);
+			if ((backtracking(t, square, map, p + 1)) && ++c.x)
+				rmv_tetri(map, c, t[p]);
+			else
+			{
+				affiche_ma_putain_de_lettre(map, p, c);
+				return (0);
+			}
 		}
+		if (c.x + t[p].x >= square && !(c.x = 0))
+			++c.y;
 	}
-	//if (sortir)
-	//si toute la place est libre pour le tetri et qu'il depasse pas on peut poser la piece
-	//if (!i && (map[c.y] + t->x <= square))
-	//Manu : penser a checker si la piece + sa position est superieur a square, dans ce cas c est pas bon, pour savoir
-	//en x : c.x + t->x <= square
-
-		//map[] = t[p]->data;
-	//backtracking(t, square, map, p + 1);
-	return (0);
+	return (1);
 }
