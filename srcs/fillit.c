@@ -36,7 +36,7 @@ void	put_tetri(short *map, t_coords c, t_tetri t)
 void	rmv_tetri(short *map, t_coords c, t_tetri t)
 {
 
-	while (i != -1 && ((t.data << (i * 4) & 0x0) >> c.x | (map[c.y + i])))
+	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
 		--i;
 }
 
