@@ -6,20 +6,20 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/06/03 05:51:43 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/06/03 09:22:24 by eferrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-void	begin(t_tetri *t, int rd)
+void	begin(t_tetri *t, int nb)
 {
 	short		*map;
 	int			square;
 
 	map = NULL;
-	square = ft_sqrt((rd + 1) / 21 * 4);
+	square = ft_sqrt(nb * 4);
 	while (0 < backtracking(t, square, map, 0))
 		++square;
 }
@@ -58,7 +58,7 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 	}
 }
 
-void	affiche_ma_putain_de_lettre(short *map, int p, t_coords c, char *print)
+/*void	affiche_ma_putain_de_lettre(short *map, int p, t_coords c, char *print)
 {
 	int i;
 
@@ -69,11 +69,11 @@ void	affiche_ma_putain_de_lettre(short *map, int p, t_coords c, char *print)
 		++i;
 	}
 }
-
+*/
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
 	t_coords	c;
-	static char	*print = NULL;
+//	static char	*print = NULL;
 
 	c.x = 0;
 	c.y = 0;
@@ -91,7 +91,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 				operand_tetri(map, c, t[p], REMOVE);
 			else
 			{
-				affiche_ma_putain_de_lettre(map, p, c, print);
+//				affiche_ma_putain_de_lettre(map, p, c, print);
 				return (0);
 			}
 		}
