@@ -35,6 +35,7 @@ void	put_tetri(short *map, t_coords c, t_tetri t)
 
 void	rmv_tetri(short *map, t_coords c, t_tetri t)
 {
+
 	while (i != -1 && ((t.data << (i * 4) & 0x0) >> c.x | (map[c.y + i])))
 		--i;
 }
@@ -58,7 +59,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 				rmv_tetri(map, c, t[p]);
 			else
 			{
-				affiche_ma_putain_de_lettre(map, p, c);
+				//affiche_ma_putain_de_lettre(map, p, c);
 				return (0);
 			}
 		}
