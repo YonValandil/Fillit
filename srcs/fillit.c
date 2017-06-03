@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eferrand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/06/03 05:07:00 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/06/03 05:51:43 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,44 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 	return (1);
 }
 
-void	put_tetri(short *map, t_coords c, t_tetri t)
+/**
+** operation sur le tetri :
+** flag = PUT pour put le tetri sur la map
+** flag = REMOVE pour remove le tetri de la map
+**/
+void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 {
 	int i;
 
 	i = t.y;
-	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
-		--i;
+	if (flag == PUT)
+	{
+		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
+			--i;
+	}
+	else if (flag == REMOVE)
+	{
+		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
+			--i;
+	}
 }
 
-void	rmv_tetri(short *map, t_coords c, t_tetri t)
+void	affiche_ma_putain_de_lettre(short *map, int p, t_coords c, char *print)
 {
 	int i;
 
-	i = t.y;
-	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
-		--i;
+	i = 0;
+	while (i <= p)
+	{
+		
+		++i;
+	}
 }
 
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
 	t_coords	c;
+	static char	*print = NULL;
 
 	c.x = 0;
 	c.y = 0;
@@ -68,12 +85,13 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 			++c.x;
 		if (c.x + t[p].x < square)
 		{
-			put_tetri(map, c, t[p]);
+			operand_tetri(map, c, t[p], PUT);
+
 			if ((backtracking(t, square, map, p + 1)) && ++c.x)
-				rmv_tetri(map, c, t[p]);
+				operand_tetri(map, c, t[p], REMOVE);
 			else
 			{
-				//affiche_ma_putain_de_lettre(map, p, c);
+				affiche_ma_putain_de_lettre(map, p, c, print);
 				return (0);
 			}
 		}
