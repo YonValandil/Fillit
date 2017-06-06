@@ -1,11 +1,9 @@
-#Regles qui ne concerne pas des noms de fichiers
 .PHONY: clean fclean re
-#Enleve les directives implicites par defauts
 .SUFFIXES:
 
 CC =		gcc
 EXEC =		fillit
-NAME =		ft
+LIB =		ft
 SRCS_DIR =	./srcs/
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
@@ -14,13 +12,14 @@ CFLAGS =	-Wall -Werror -Wextra
 ARFLAGS =	-rcs
 CFILES =	main fillit
 
-#pattern sub : $(var:pattern=replacement)
 SRCS =		$(CFILES:%=$(SRCS_DIR)%.c)
 OBJS =		$(SRCS:%.c=$(OBJS_DIR)%.o)
 
-all:
+all: $(NAME)
+
+$(NAME):
 	make -C libft/
-	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(NAME) -o $(EXEC) $(CFLAGS)
+	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(LIB) -o $(EXEC) $(CFLAGS)
 
 clean:
 	rm -f $(OBJS)

@@ -6,12 +6,11 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/06/03 09:22:24 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/06/06 08:37:59 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 void	begin(t_tetri *t, int nb)
 {
@@ -36,44 +35,46 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 	return (1);
 }
 
-/**
-** operation sur le tetri :
-** flag = PUT pour put le tetri sur la map
-** flag = REMOVE pour remove le tetri de la map
-**/
 void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 {
 	int i;
 
 	i = t.y;
 	if (flag == PUT)
-	{
 		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
 			--i;
-	}
 	else if (flag == REMOVE)
-	{
 		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
 			--i;
-	}
 }
 
-/*void	affiche_ma_putain_de_lettre(short *map, int p, t_coords c, char *print)
+void	ft_display(square, t_tetri t, p, t_coords c)
 {
 	int i;
+	int size;
+	static char *display = NULL;
 
-	i = 0;
-	while (i <= p)
+	size = sizeof(char) * square * square + 1;
+	if (!display)
 	{
-		
-		++i;
+		display = (char*)ft_memalloc(size);
+		display = (char*)ft_memset(display, '*', size - 1); //'*' a verifier
+	}
+	//p == numero de la lettre
+	//t == le tetri a scanner pour savoir ou mettre les cubes
+	//c == ou le mettre dans la map (display)
+	i = t.y;
+	p = p + 65;
+	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) // faire un par un
+	{
+		diplay[c.y + i] = p;
+		--i;
 	}
 }
-*/
+
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
 	t_coords	c;
-//	static char	*print = NULL;
 
 	c.x = 0;
 	c.y = 0;
@@ -91,7 +92,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 				operand_tetri(map, c, t[p], REMOVE);
 			else
 			{
-//				affiche_ma_putain_de_lettre(map, p, c, print);
+				ft_display(square, t, p, c);
 				return (0);
 			}
 		}

@@ -6,16 +6,16 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/03 09:24:49 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/06/06 04:59:34 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#define BUFF_SIZE 546
-#define PUT 1
-#define REMOVE 0
+# define BUFF_SIZE 546
+# define PUT 1
+# define REMOVE 0
 # define T1 0xF000
 # define T2 0x8888
 # define T3 0xE400
@@ -36,32 +36,32 @@
 # define T18 0x4C80
 # define T19 0xCC00
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/fcntl.h>
 
-#include <stdlib.h>
-#include <unistd.h>
-#include "libft.h"
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft.h"
 
 typedef struct		s_coords
 {
-    int				x;
-    int				y;
+	int				x;
+	int				y;
 }					t_coords;
 
 typedef struct		s_tetri
 {
 	unsigned short	data;
-    int				x;
+	int				x;
 	int				y;
 }					t_tetri;
 
-int  				parse_file(char *buf, t_tetri*);
-int					set_tetri(t_tetri*, int);
-void				begin(t_tetri*, int);
-int					backtracking(t_tetri*, int, short*, int);
+int					parse_file(char *buf, t_tetri *t);
+int					set_tetri(t_tetri *t, int nb);
+void				begin(t_tetri *t, int nb);
+int					backtracking(t_tetri *t, int square, short *map, int p);
 void				operand_tetri(short *map, t_coords c, t_tetri t, int flag);
-void				affiche_ma_putain_de_lettre(short *map, int p, t_coords c);
+void				ft_display(int square, t_tetri t, int p, t_coords c);
 
 #endif

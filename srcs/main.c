@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/03 09:26:42 by eferrand         ###   ########.fr       */
+/*   Updated: 2017/06/06 05:05:28 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		set_tetri(t_tetri *t, int nb)
 			t[i].data = t[i].data << 4;
 		while (!(t[i].data & 0x8888))
 			t[i].data = t[i].data << 1;
-		if (t[i].data != T1 && t[i].data != T2 && t[i].data != T3 && 
+		if (t[i].data != T1 && t[i].data != T2 && t[i].data != T3 &&
 				t[i].data != T4 && t[i].data != T5 && t[i].data != T6 &&
 				t[i].data != T7 && t[i].data != T8 && t[i].data != T9 &&
 				t[i].data != T10 && t[i].data != T11 && t[i].data != T12 &&
@@ -86,13 +86,13 @@ int		main(int argc, char *argv[])
 	}
 	buf = (char[BUFF_SIZE + 1]){0};
 	if (-1 == (fd = open(argv[1], O_RDONLY)) ||
-			-1 == (rd = read(fd, buf, BUFF_SIZE)) || 
+			-1 == (rd = read(fd, buf, BUFF_SIZE)) ||
 			545 < rd || !parse_file(buf, t) ||
 			!set_tetri(t, (rd = (rd + 1) / 21)))
 	{
 		ft_putstr("error\n");
 		return (0);
 	}
-//	begin(t, rd);
+	begin(t, rd);
 	return (0);
 }
