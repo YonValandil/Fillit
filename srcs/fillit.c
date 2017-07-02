@@ -65,7 +65,7 @@ void	ft_display(square, t_tetri t, p, t_coords c)
 	//c == ou le mettre dans la map (display)
 	i = t.y;
 	p = p + 65;
-	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) // faire un par un
+	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
 	{
 		diplay[c.y + i] = p;
 		--i;
