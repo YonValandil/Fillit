@@ -15,11 +15,9 @@ CFILES =	main fillit
 SRCS =		$(CFILES:%=$(SRCS_DIR)%.c)
 OBJS =		$(SRCS:%.c=$(OBJS_DIR)%.o)
 
-all: $(NAME)
-
-$(NAME):
+all:
 	make -C libft/
-	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(LIB) -o $(EXEC) $(CFLAGS)
+	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(LIB) -o $(EXEC) #$(CFLAGS)
 
 clean:
 	rm -f $(OBJS)

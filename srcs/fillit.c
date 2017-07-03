@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/06/06 08:37:59 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/03 05:44:14 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 			--i;
 }
 
-void	ft_display(square, t_tetri t, p, t_coords c)
+void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
 {
 	int i;
 	int size;
@@ -65,9 +65,18 @@ void	ft_display(square, t_tetri t, p, t_coords c)
 	//c == ou le mettre dans la map (display)
 	i = t.y;
 	p = p + 65;
-	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
+
+	//old = while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
+
+	while (/* parcourir tous les tetris */)
 	{
-		diplay[c.y + i] = p;
+
+	}
+	while (i != -1 )
+	{
+		//remplacer par la lettre
+		if (t.data[p])
+			display[c.y + i] = p;
 		--i;
 	}
 }

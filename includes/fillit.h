@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/06 04:59:34 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/03 05:34:59 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int					set_tetri(t_tetri *t, int nb);
 void				begin(t_tetri *t, int nb);
 int					backtracking(t_tetri *t, int square, short *map, int p);
 void				operand_tetri(short *map, t_coords c, t_tetri t, int flag);
-void				ft_display(int square, t_tetri t, int p, t_coords c);
+void				ft_display(int square, t_tetri *t, int p, t_coords c);
 
 #endif
