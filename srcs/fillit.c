@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/07/08 02:08:13 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/08 05:39:03 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ void	begin(t_tetri *t, int nb)
 {
 	short		*map;
 	int			square;
+	//ajoute var p (a la place 0 direct dans les arg bactracking) :
+	int p;
 
+	p = 0;
 	map = NULL;
 	square = ft_sqrt(nb * 4);
-	while (0 < backtracking(t, square, map, 0))
+	while (0 < backtracking(t, square, map, p))
+	{
+		printf("\nbegin p = %d\n", p); //
 		++square;
+	}
 }
 
 int		cmp_map(short *map, t_coords c, t_tetri t)
@@ -90,6 +96,8 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 	c.y = 0;
 	if (!map)
 		map = (short[13]){0};
+	printf("\nbacktacking p = %d\n", p); //
+	//printf("\ntetri = %u\n", t[p].data);
 	while (c.y + t[p].y < square)
 	{
 		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
@@ -105,6 +113,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 			{
 				printf("\nBACTRACKING : rappel\n"); //
 				printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
+				printf("\ntetri = %u\n", t[p].data);
 				operand_tetri(map, c, t[p], REMOVE);
 			}
 			else
