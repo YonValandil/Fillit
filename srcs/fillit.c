@@ -6,11 +6,12 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/07/03 05:44:14 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/08 02:08:13 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 void	begin(t_tetri *t, int nb)
 {
@@ -48,7 +49,7 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 			--i;
 }
 
-void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
+/*void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
 {
 	int i;
 	int size;
@@ -59,17 +60,17 @@ void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
 	{
 		display = (char*)ft_memalloc(size);
 		display = (char*)ft_memset(display, '*', size - 1); //'*' a verifier
-	}
+	}*/
 	//p == numero de la lettre
 	//t == le tetri a scanner pour savoir ou mettre les cubes
 	//c == ou le mettre dans la map (display)
-	i = t.y;
-	p = p + 65;
+	/*i = t.y;
+	p = p + 65;*/
 
 	//old = while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
 
-	while (/* parcourir tous les tetris */)
-	{
+	//while (/* parcourir tous les tetris */)
+	/*{
 
 	}
 	while (i != -1 )
@@ -79,7 +80,7 @@ void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
 			display[c.y + i] = p;
 		--i;
 	}
-}
+}*/
 
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
@@ -92,16 +93,24 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 	while (c.y + t[p].y < square)
 	{
 		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
+		{
+			printf("\nc.x = %d\n", c.x); //
 			++c.x;
+		}
 		if (c.x + t[p].x < square)
 		{
 			operand_tetri(map, c, t[p], PUT);
 
 			if ((backtracking(t, square, map, p + 1)) && ++c.x)
+			{
+				printf("\nBACTRACKING : rappel\n"); //
+				printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
 				operand_tetri(map, c, t[p], REMOVE);
+			}
 			else
 			{
-				ft_display(square, t, p, c);
+				printf("\nSI RESOLU : avant ft_display\n"); //
+				//ft_display(square, t, p, c);
 				return (0);
 			}
 		}
