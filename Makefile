@@ -8,7 +8,7 @@ SRCS_DIR =	./srcs/
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
 HEADER =	./includes/
-CFLAGS =	-Wall -Werror -Wextra
+CFLAGS =	-Wall -Werror -Wextra -g
 ARFLAGS =	-rcs
 CFILES =	main fillit
 
