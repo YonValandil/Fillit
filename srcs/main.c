@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:03:58 by jjourne           #+#    #+#             */
-/*   Updated: 2017/07/16 14:38:15 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/19 04:22:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		set_tetri(t_tetri *t, int nb)
 	i = -1;
 	while (++i < nb && t[i].data)
 	{
-		t[i].nb = nb;
+		//t[i].nb = nb;
 		t[i].x = 0;
 		t[i].y = 0;
 		while (!(t[i].data & 0xF000))

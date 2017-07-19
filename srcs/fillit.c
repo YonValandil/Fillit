@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/07/18 01:23:43 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/19 05:20:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	begin(t_tetri *t, int nb)
 {
 	short		*map;
 	int			square;
-	//ajoute var p (a la place 0 direct dans les arg bactracking) :
-	int p;
+	int 		p;
 
 	p = 0;
 	map = NULL;
@@ -56,9 +55,10 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 			--i;
 }
 
-/*void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
+void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
 {
 	int i;
+	int j;
 	int size;
 	static char *display = NULL;
 
@@ -66,28 +66,41 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 	if (!display)
 	{
 		display = (char*)ft_memalloc(size);
-		display = (char*)ft_memset(display, '*', size - 1); //'*' a verifier
-	}*/
-	//p == numero de la lettre
+		display = (char*)ft_memset(display, '.', size - 1); //'.' a verifier
+	}
+
+	//ASSOCIATION DES LETTRES :
+
+	//p == la lettre a afficher
 	//t == le tetri a scanner pour savoir ou mettre les cubes
 	//c == ou le mettre dans la map (display)
-	/*i = t.y;
-	p = p + 65;*/
 
-	//old = while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
+	//old : while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
 
-	//while (/* parcourir tous les tetris */)
-	/*{
-
-	}
-	while (i != -1 )
+	i = -1;
+	while (t[++i].data) // parcourir tous les tetris
 	{
-		//remplacer par la lettre
-		if (t.data[p])
-			display[c.y + i] = p;
-		--i;
+		j = 15;
+		p = i + 65;
+		c.x = 5; //tmp : juste pour utiliser la variable pour l'erreur de compil
+		while (j != -1) // parcourir le tetri
+		{
+			//if () // Nawak : ((t[i].data << j) >> c.x & 0b1)
+			//	display[] = p;
+			--j;
+		}
 	}
-}*/
+
+	//AFFICHAGE DE LA MAP
+
+	i = -1;
+	while (display[++i])
+	{
+		if (!(i % square))
+			ft_putchar('\n');
+		ft_putchar(display[i]);
+	}
+}
 
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
@@ -95,12 +108,12 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 
 	c.x = 0;
 	c.y = 0;
-	if (p >= t[p].nb)
-		return (0);
+	//if (p >= t[p].nb) //condition d'arret ajoute ligne 128, avant d'appeler bactrcking -> (t[p].data)
+		//return (0);
 	if (!map)
 		map = (short[13]){0};
-	printf("\nbacktacking p = %d\n", p); //
-	//printf("\ntetri = %u\n", t[p].data); //
+	printf("\npiece numero : %d\n", p); //
+	printf("\ntetri = 0x%4X\n", t[p].data); //
 	while (c.y + t[p].y < square)
 	{
 		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
@@ -112,17 +125,30 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		{
 			operand_tetri(map, c, t[p], PUT);
 
-			if ((backtracking(t, square, map, p + 1)) && ++c.x)
+			if ((t[p].data) && (backtracking(t, square, map, p + 1)) && ++c.x)
 			{
-				printf("\nBACTRACKING : rappel\n"); //
+				printf("\nBACTRACKING : apres rappel\n"); //
 				printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
-				printf("\ntetri = %u\n", t[p].data); //
+				printf("\ntetri = 0x%4X\n", t[p].data); //
 				operand_tetri(map, c, t[p], REMOVE);
 			}
 			else
 			{
 				printf("\nSI RESOLU : avant ft_display\n"); //
+
+				//------TEST AFF MAP (avec les 0/1)----------
+				int i;
+				i = -1;
+				while (++i < 25)
+				{
+					if (!(i % square))
+						ft_putchar('\n');
+					ft_putchar(map[i] + '0');
+				}
+				//--------------------------------------------
+
 				//ft_display(square, t, p, c);
+				printf("\nEND\n");
 				return (0);
 			}
 		}

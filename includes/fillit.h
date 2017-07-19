@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:25:43 by jjourne           #+#    #+#             */
-/*   Updated: 2017/07/16 14:35:57 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/19 04:22:10 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct		s_coords
 
 typedef struct		s_tetri
 {
-	int				nb;
+	//int				nb;
 	unsigned short	data;
 	int				x;
 	int				y;
