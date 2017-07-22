@@ -17,7 +17,7 @@ OBJS =		$(SRCS:%.c=$(OBJS_DIR)%.o)
 
 all:
 	make -C libft/
-	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(LIB) -o $(EXEC)
+	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(LIB) -o $(EXEC) $(CFLAGS)
 
 clean:
 	rm -f $(OBJS)

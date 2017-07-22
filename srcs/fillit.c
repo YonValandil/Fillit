@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/07/19 05:20:36 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/07/22 02:58:58 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,38 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 	return (1);
 }
 
-void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
+void	operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square) //tmp square
 {
 	int i;
 
 	i = t.y;
-	//printf("\ndans operand tetri ------------------------\n");
+	printf("\ndans operand tetri\n"); //
+	printf("i = %d\n", i); //
 	if (flag == PUT)
 	{
-		printf("\nput tetri----------------------------------\n");
+		printf("\ndans PUT tetri\n"); //
 		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
 		{
-			printf("\nput tetri\n");
+			printf("\n----- put le tetri -----\n"); //
 			--i;
 		}
+		printf("\nmap = \n"); //
+		//------TEST AFF MAP (avec les 0/1)----------
+		int i;
+		i = -1;
+		while (++i < 15)
+		{
+			if (!(i % square))
+				ft_putchar('\n');
+			ft_putchar(map[i] + '0');
+		}
+		//--------------------------------------------
 	}
 	else if (flag == REMOVE)
 	{
 		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
 		{
-			printf("\nremove tetri\n");
+			printf("\nremove tetri\n"); //
 			--i;
 		}
 	}
@@ -124,8 +136,8 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		//return (0);
 	if (!map)
 		map = (short[13]){0};
-	//printf("\npiece numero : %d\n", p); //
-	//printf("\ntetri = 0x%4X\n", t[p].data); //
+	printf("\npiece numero : %d\n", p); //
+	printf("\ntetri = 0x%4X\n", t[p].data); //
 	while (c.y + t[p].y < square)
 	{
 		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
@@ -135,21 +147,21 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		}
 		if (c.x + t[p].x < square)
 		{
-			printf("\navant operand tetri pour put\n");
-			operand_tetri(map, c, t[p], PUT);
+			printf("\navant operand tetri pour put\n"); //
+			operand_tetri(map, c, t[p], PUT, square); //square tmp
 
 			if ((t[p].data) && (backtracking(t, square, map, p + 1)) && ++c.x)
 			{
-				//printf("\nBACTRACKING : apres rappel\n"); //
-				//printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
-				//printf("\ntetri = 0x%4X\n", t[p].data); //
-				operand_tetri(map, c, t[p], REMOVE);
+				printf("\nBACTRACKING : apres rappel\n"); //
+				printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
+				printf("\ntetri = 0x%4X\n", t[p].data); //
+				operand_tetri(map, c, t[p], REMOVE, square); //square tmp
 			}
 			else
 			{
-				//printf("\nSI RESOLU : avant ft_display\n"); //
+				printf("\nAVANT ft_display, test aff map final :\n"); //
 
-				//------TEST AFF MAP (avec les 0/1)----------
+				//------TEST AFF MAP FINAL (avec les 0/1)----------
 				int i;
 				i = -1;
 				while (++i < 25)
@@ -161,7 +173,7 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 				//--------------------------------------------
 
 				//ft_display(square, t, p, c);
-				printf("\nEND\n");
+				printf("\nEND\n"); //
 				return (0);
 			}
 		}
