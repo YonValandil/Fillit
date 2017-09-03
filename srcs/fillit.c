@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/07/22 02:58:58 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/09/03 04:32:02 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,30 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square) //tm
 	if (flag == PUT)
 	{
 		printf("\ndans PUT tetri\n"); //
-		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i])))
+		while (i != -1 && ((map[c.y + i]) |= (t.data << (i * 4) & 0xF) >> c.x))
 		{
 			printf("\n----- put le tetri -----\n"); //
+			//map[c.y + i] = (t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i]);
+
 			--i;
 		}
+		printf("\ndans PUT tetri square = %d\n", square); //
 		printf("\nmap = \n"); //
-		//------TEST AFF MAP (avec les 0/1)----------
+		//------TEST AFF MAP FINAL (avec les 0/1)----------
 		int i;
-		i = -1;
-		while (++i < 15)
+		i = 0;
+		int j;
+		j = -1;
+		square = 13;
+		while (++j < square || i < square)
 		{
-			if (!(i % square))
+			if (!(j % square))
+			{
+				++i;
+				j = 0;
 				ft_putchar('\n');
-			ft_putchar(map[i] + '0');
+			}
+			ft_putchar(((map[i] << j) & 1) + '0');
 		}
 		//--------------------------------------------
 	}
@@ -136,6 +146,24 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 		//return (0);
 	if (!map)
 		map = (short[13]){0};
+		//------TEST AFF MAP FINAL (avec les 0/1)----------
+		int i;
+		i = 0;
+		int j;
+		j = -1;
+		square = 13;
+		while (++j < square || i < square)
+		{
+			if (!(j % square))
+			{
+				++i;
+				j = 0;
+				ft_putchar('\n');
+			}
+			ft_putchar(((map[i] << j) & 1) + '0');
+		}
+		//--------------------------------------------
+	//exit(0);
 	printf("\npiece numero : %d\n", p); //
 	printf("\ntetri = 0x%4X\n", t[p].data); //
 	while (c.y + t[p].y < square)
@@ -163,12 +191,19 @@ int 	backtracking(t_tetri *t, int square, short *map, int p)
 
 				//------TEST AFF MAP FINAL (avec les 0/1)----------
 				int i;
-				i = -1;
-				while (++i < 25)
+				i = 0;
+				int j;
+				j = -1;
+				square = 13;
+				while (++j < square || i < square)
 				{
-					if (!(i % square))
+					if (!(j % square))
+					{
+						++i;
+						j = 0;
 						ft_putchar('\n');
-					ft_putchar(map[i] + '0');
+					}
+					ft_putchar(((map[i] << j) & 1) + '0');
 				}
 				//--------------------------------------------
 
