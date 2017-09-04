@@ -6,7 +6,7 @@
 /*   By: eferrand <eferrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 05:06:56 by eferrand          #+#    #+#             */
-/*   Updated: 2017/09/03 04:32:02 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/09/04 04:18:41 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square) //tm
 	if (flag == PUT)
 	{
 		printf("\ndans PUT tetri\n"); //
-		while (i != -1 && ((map[c.y + i]) |= (t.data << (i * 4) & 0xF) >> c.x))
+		while (i >= 0 && ((map[c.y + i]) |= (t.data << (i * 4) & 0xF) >> c.x))
 		{
 			printf("\n----- put le tetri -----\n"); //
 			//map[c.y + i] = (t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i]);
@@ -77,6 +77,14 @@ void	operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square) //tm
 			}
 			ft_putchar(((map[i] << j) & 1) + '0');
 		}
+		printf("VIVE LES FLEURS\n");
+		int	yoyo = 0;
+		while (yoyo < 13)
+		{
+			ft_putchar(map[yoyo] + '0');
+			++yoyo;
+		}
+		printf("yoyo\n");
 		//--------------------------------------------
 	}
 	else if (flag == REMOVE)
