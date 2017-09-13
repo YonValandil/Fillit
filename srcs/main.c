@@ -49,7 +49,6 @@ int		set_tetri(t_tetri *t, int nb)
 	i = -1;
 	while (++i < nb && t[i].data)
 	{
-		//t[i].nb = nb;
 		t[i].x = 0;
 		t[i].y = 0;
 		while (!(t[i].data & 0xF000))
@@ -77,8 +76,9 @@ int		main(int argc, char *argv[])
 	int		rd;
 	int		fd;
 	char	*buf;
-	t_tetri	t[26];
+	t_tetri	*t;
 
+	t = (t_tetri[27]){0};
 	rd = 1;
 	if (argc != 2)
 	{

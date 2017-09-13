@@ -52,7 +52,6 @@ typedef struct		s_coords
 
 typedef struct		s_tetri
 {
-	//int				nb;
 	unsigned short	data;
 	int				x;
 	int				y;
@@ -62,7 +61,7 @@ int					parse_file(char *buf, t_tetri *t);
 int					set_tetri(t_tetri *t, int nb);
 void				begin(t_tetri *t, int nb);
 int					backtracking(t_tetri *t, int square, short *map, int p);
-void				operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square); //int square tmp for test aff map
+void				operand_tetri(short *map, t_coords c, t_tetri t, int flag);
 void				ft_display(int square, t_tetri *t, int p, t_coords c);
 
 #endif

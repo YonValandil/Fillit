@@ -13,6 +13,21 @@
 #include "fillit.h"
 #include <stdio.h>
 
+void	print_bin(unsigned short nb, int square)
+{
+	int	a;
+
+	a = 16;
+	while (a--)
+	{
+		if (a + square < 16)
+			break ;
+		ft_putnbr((nb & (1 << a)) != 0);
+		write(1, " ", 1);
+	}
+	printf("\n");
+}
+
 void	begin(t_tetri *t, int nb)
 {
 	short		*map;
@@ -22,11 +37,11 @@ void	begin(t_tetri *t, int nb)
 	p = 0;
 	map = NULL;
 	square = ft_sqrt(nb * 4);
+	printf("nb = %d\nsquare = %d\n\n", nb, square);
 	while (0 < backtracking(t, square, map, p))
 	{
-
-		printf("\nbegin p = %d\n", p); //
 		++square;
+		printf("\nbegin square = %d\n\n", square);
 	}
 }
 
@@ -35,192 +50,126 @@ int		cmp_map(short *map, t_coords c, t_tetri t)
 	int i;
 
 	i = t.y;
-	while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x & (map[c.y + i])))
+	printf("cmp_map t.x = %d	t.y = %d\n", t.x, t.y);
+	while (i != -1 && !((t.data << (i * 4) & 0xF000) >> c.x & map[c.y + i]))
 		--i;
-	if ((((0xF000 >> (i * 4)) & t.data) >> c.x) & (map[c.y + i]))
+	if (i != -1)
 		return (0);
 	return (1);
 }
 
-void	operand_tetri(short *map, t_coords c, t_tetri t, int flag, int square) //tmp square
+void	operand_tetri(short *map, t_coords c, t_tetri t, int flag)
 {
 	int i;
 
-	i = t.y;
-	printf("\ndans operand tetri\n"); //
-	printf("i = %d\n", i); //
+	i = t.y - 1;
 	if (flag == PUT)
 	{
-		printf("\ndans PUT tetri\n"); //
-		while (i >= 0 && ((map[c.y + i]) |= (t.data << (i * 4) & 0xF) >> c.x))
+		printf("PUT :\nc.x = %d\nc.y = %d\n", c.x, c.y);
+		while (0 <= i) 
 		{
-			printf("\n----- put le tetri -----\n"); //
-			//map[c.y + i] = (t.data << (i * 4) & 0xF) >> c.x | (map[c.y + i]);
-
+			map[c.y + i] |= (t.data << (i * 4) & 0xF000) >> c.x;
 			--i;
 		}
-		printf("\ndans PUT tetri square = %d\n", square); //
-		printf("\nmap = \n"); //
-		//------TEST AFF MAP FINAL (avec les 0/1)----------
-		int i;
-		i = 0;
-		int j;
-		j = -1;
-		square = 13;
-		while (++j < square || i < square)
-		{
-			if (!(j % square))
-			{
-				++i;
-				j = 0;
-				ft_putchar('\n');
-			}
-			ft_putchar(((map[i] << j) & 1) + '0');
-		}
-		printf("VIVE LES FLEURS\n");
-		int	yoyo = 0;
-		while (yoyo < 13)
-		{
-			ft_putchar(map[yoyo] + '0');
-			++yoyo;
-		}
-		printf("yoyo\n");
-		//--------------------------------------------
 	}
 	else if (flag == REMOVE)
 	{
-		while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x ^ (map[c.y + i])))
+		printf("REMOVE :\nc.x = %d\nc.y = %d\n", c.x, c.y);
+		while (0 <= i)
 		{
-			printf("\nremove tetri\n"); //
+			map[c.y + i] ^= (t.data << (i * 4) & 0xF000) >> c.x;
 			--i;
 		}
 	}
 }
 
-void	ft_display(int square, t_tetri *t, int p, t_coords c) // old t_tetri t
+void	ft_display(int square, t_tetri *t, int p, t_coords c)
 {
-	int i;
-	int j;
-	int size;
-	static char *display = NULL;
+	unsigned short	a;
+	static char		*display = NULL;
 
-	size = sizeof(char) * square * square + 1;
+	printf("coucou je display\n");
 	if (!display)
 	{
-		display = (char*)ft_memalloc(size);
-		display = (char*)ft_memset(display, '.', size - 1); //'.' a verifier
-	}
-
-	//ASSOCIATION DES LETTRES :
-
-	//p == la lettre a afficher
-	//t == le tetri a scanner pour savoir ou mettre les cubes
-	//c == ou le mettre dans la map (display)
-
-	//old : while (i != -1 && ((t.data << (i * 4) & 0xF) >> c.x | (diplay[c.y + i]))) //faire un par un
-
-	i = -1;
-	while (t[++i].data) // parcourir tous les tetris
-	{
-		j = 15;
-		p = i + 65;
-		c.x = 5; //tmp : juste pour utiliser la variable pour l'erreur de compil
-		while (j != -1) // parcourir le tetri
+		if (!(display = (char*)malloc((square + 1) * square + 1)))
 		{
-			//if () // Nawak : ((t[i].data << j) >> c.x & 0b1)
-			//	display[] = p;
-			--j;
+			ft_putstr("error allocation\n");
+			exit(3);
+		}
+		display = (char*)ft_memset(display, '.', (square + 1) * square);
+		a = 0;
+		while (display[a])
+		{
+			if (!((a + 1) % (square + 1)))
+				display[a] = '\n';
+			++a;
 		}
 	}
-
-	//AFFICHAGE DE LA MAP
-
-	i = -1;
-	while (display[++i])
-	{
-		if (!(i % square))
-			ft_putchar('\n');
-		ft_putchar(display[i]);
+	// ça deconne à partir d'ici
+	a = 0;
+	while (a < 16)
+	{ 
+		if (t->data & (1 << a))
+			display[c.x + (c.y + a / 4) * (square + 1) + a % 4] = p + 'A';
+		++a;
 	}
+	if (p == 0)
+	{
+		ft_putstr(display);
+		exit(3);
+	}
+}
+
+void	print_map(short *map, int square)
+{
+	(void)map;
+	int i;
+
+	i = 0;
+	while(i < square)
+	{
+		print_bin(map[i], square);
+		i++;
+	}
+	printf("\n");
 }
 
 int 	backtracking(t_tetri *t, int square, short *map, int p)
 {
 	t_coords	c;
 
+	printf("|____________________________________________________________________|\np = %d\n\n", p);
 	c.x = 0;
 	c.y = 0;
-	//if (p >= t[p].nb) //condition d'arret ajoute ligne 128, avant d'appeler bactrcking -> (t[p].data)
-		//return (0);
 	if (!map)
 		map = (short[13]){0};
-		//------TEST AFF MAP FINAL (avec les 0/1)----------
-		int i;
-		i = 0;
-		int j;
-		j = -1;
-		square = 13;
-		while (++j < square || i < square)
-		{
-			if (!(j % square))
-			{
-				++i;
-				j = 0;
-				ft_putchar('\n');
-			}
-			ft_putchar(((map[i] << j) & 1) + '0');
-		}
-		//--------------------------------------------
-	//exit(0);
-	printf("\npiece numero : %d\n", p); //
-	printf("\ntetri = 0x%4X\n", t[p].data); //
-	while (c.y + t[p].y < square)
+	while (c.y + t[p].y <= square)
 	{
-		while (c.x + t[p].x < square && !cmp_map(map, c, t[p]))
-		{
-			printf("\nc.x = %d\n", c.x); //
+		while (c.x + t[p].x <= square && !cmp_map(map, c, t[p]))
 			++c.x;
-		}
-		if (c.x + t[p].x < square)
+//		printf("entré dans le if put remove : %d\nc.x + t[p].x <= square\nc.x = %d\nt[p].x = %d\nsquare = %d\n\n", c.x + t[p].x <= square, c.x, t[p].x, square);
+//		sleep(1);
+		if (c.x + t[p].x <= square)
 		{
-			printf("\navant operand tetri pour put\n"); //
-			operand_tetri(map, c, t[p], PUT, square); //square tmp
-
-			if ((t[p].data) && (backtracking(t, square, map, p + 1)) && ++c.x)
+			operand_tetri(map, c, t[p], PUT);
+			printf("piece :%hx\nmap :\n", t[p].data);
+			print_map(map, square);
+//			sleep(1);
+			if ((t[p].data) && (backtracking(t, square, map, p + 1)))
 			{
-				printf("\nBACTRACKING : apres rappel\n"); //
-				printf("\nsquare = %d, p = %d, c.x = %d, c.y = %d\n", square, p, c.x, c.y); //
-				printf("\ntetri = 0x%4X\n", t[p].data); //
-				operand_tetri(map, c, t[p], REMOVE, square); //square tmp
+				operand_tetri(map, c, t[p], REMOVE);
+				printf("piece :%hx\nmap :\n", t[p].data);
+				print_map(map, square);
+//				sleep(1);
+				++c.x;
 			}
 			else
 			{
-				printf("\nAVANT ft_display, test aff map final :\n"); //
-
-				//------TEST AFF MAP FINAL (avec les 0/1)----------
-				int i;
-				i = 0;
-				int j;
-				j = -1;
-				square = 13;
-				while (++j < square || i < square)
-				{
-					if (!(j % square))
-					{
-						++i;
-						j = 0;
-						ft_putchar('\n');
-					}
-					ft_putchar(((map[i] << j) & 1) + '0');
-				}
-				//--------------------------------------------
-
-				//ft_display(square, t, p, c);
-				printf("\nEND\n"); //
+				ft_display(square, t, p, c);
 				return (0);
 			}
 		}
-		if (c.x + t[p].x >= square && !(c.x = 0))
+		else if (!(c.x = 0))
 			++c.y;
 	}
 	return (1);
